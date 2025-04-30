@@ -80,7 +80,7 @@ const Projects: React.FC = () => {
 
   // Filter states
   const [searchTerm, setSearchTerm] = useState("");
-  const [location, setLocation] = useState("");
+  const [location, setLocation] = useState("all");
   const [minInvestment, setMinInvestment] = useState([0]);
   const [sortBy, setSortBy] = useState("newest");
 
@@ -88,7 +88,7 @@ const Projects: React.FC = () => {
   const filteredProjects = allProjects.filter(project => {
     const matchesSearch = project.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
                            project.description.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesLocation = location === "" || project.location === location;
+    const matchesLocation = location === "all" || project.location === location;
     const matchesInvestment = project.targetAmount >= minInvestment[0];
     
     return matchesSearch && matchesLocation && matchesInvestment;
@@ -144,7 +144,7 @@ const Projects: React.FC = () => {
                     <SelectValue placeholder="All locations" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="">All locations</SelectItem>
+                    <SelectItem value="all">All locations</SelectItem>
                     {locations.map((loc) => (
                       <SelectItem key={loc} value={loc}>
                         {loc}
